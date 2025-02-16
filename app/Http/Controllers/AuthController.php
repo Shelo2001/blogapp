@@ -129,4 +129,18 @@ class AuthController extends Controller
             return redirect()->route('admin.forgot')->with('fail', 'Something went wrong. Try again later.');
         }
     }
+
+    public function resetForm(Request $request, $token=null){
+        $isTokenExists = DB::table('password_reset_tokens')->where('token',$token)->first();
+        if(!$isTokenExists){
+            return redirect()->route('admin.forgot')->with('fail', 'Invalid token.');
+        } else {
+            $data=[
+                'pageTitle'=>'Reset password',
+                'token'=>$token
+            ];
+
+            return view('back.pages.auth.reset', $data);
+        }
+    }
 }
