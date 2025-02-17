@@ -130,17 +130,59 @@ class AuthController extends Controller
         }
     }
 
-    public function resetForm(Request $request, $token=null){
-        $isTokenExists = DB::table('password_reset_tokens')->where('token',$token)->first();
-        if(!$isTokenExists){
+    public function resetForm(Request $request, $token = null)
+    {
+        $isTokenExists = DB::table('password_reset_tokens')->where('token', $token)->first();
+        if (!$isTokenExists) {
             return redirect()->route('admin.forgot')->with('fail', 'Invalid token.');
         } else {
-            $data=[
-                'pageTitle'=>'Reset password',
-                'token'=>$token
+            $data = [
+                'pageTitle' => 'Reset password',
+                'token' => $token
             ];
 
             return view('back.pages.auth.reset', $data);
         }
+    }
+
+    public function resetPasswordHandler(Request $request)
+    {
+        $request->validate([
+            'new_password' => 'required|min:6|required_with:new_password_confirmation|same:new_password_confirmation',
+            'new_password_confirmation' => 'required'
+        ]);
+
+        $dbToken = DB::table('password_reset_tokens')->where('token', $request->token)->first();
+
+        $user = User::where('email', $dbToken->email)->first();
+
+        User::where('email', $user->email)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        $data = array(
+            'user' => $user,
+            "new_password" => $request->new_password
+        );
+
+        $mail_body=view('email-templates.password-changes-template',$data)->render();
+
+        $mailConfig=array(
+            'recepient_address'=>$user->email,
+            'recepient_name'=>$user->name,
+            'subject'=>'password changed',
+            'body'=>$mail_body
+        );
+
+        if (CMail::send($mailConfig)) {
+            DB::table('password_reset_tokens')->where([
+                'email'=>$dbToken->email,
+                'token'=>$dbToken->token
+            ])->delete();
+            return redirect()->route('admin.login')->with('success', 'Your password has been changed successfully.');
+        } else {
+            return redirect()->route('admin.reset')->with('fail', 'Something went wrong. Try again later.');
+        }
+
     }
 }
