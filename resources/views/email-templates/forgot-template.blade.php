@@ -48,6 +48,7 @@
         <h4>Password Reset Request, {{$user->name}}</h4>
         <p>You requested to reset your password. Click the button below to proceed.</p>
         <a href="{{$actionLink}}" target="_blank" class="button">Reset Password</a>
+        <p>This link is valid for 15 minutes</p>
         <p>If you didn't request this, you can ignore this email.</p>
         <p class="footer">&copy; 2025. All rights reserved.</p>
     </div>
