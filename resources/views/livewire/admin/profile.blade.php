@@ -56,27 +56,27 @@
                     <div class="tab height-100-p">
                         <ul class="nav nav-tabs customtab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#personal_details" role="tab">Personal Details</a>
+                                <a  wire:click="selectTab('personal_details')" class="nav-link {{$tab=='personal_details' ? 'active' : ''}}" data-toggle="tab" href="#personal_details" role="tab">Personal Details</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#update_password" role="tab">Update Password</a>
+                                <a wire:click="selectTab('update_password')" class="nav-link {{$tab=='update_password' ? 'active' : ''}}" data-toggle="tab" href="#update_password" role="tab">Update Password</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#social_links" role="tab">Social Links</a>
+                                <a wire:click="selectTab('social_links')" class="nav-link {{$tab=='social_links' ? 'active' : ''}}" data-toggle="tab" href="#social_links" role="tab">Social Links</a>
                             </li>
                         </ul>
                         <div class="tab-content">
-                            <div class="tab-pane fade show active" id="personal_details" role="tabpanel">
+                            <div class="tab-pane fade {{$tab=='personal_details' ? 'show active' : ''}}" id="personal_details" role="tabpanel">
                                 <div class="pd-20">
                                     ---- Personal Details ----
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="update_password" role="tabpanel">
+                            <div class="tab-pane fade {{$tab=='update_password' ? 'show active' : ''}}" id="update_password" role="tabpanel">
                                 <div class="pd-20 profile-task-wrap">
                                     ---- Update Password ----
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="social_links" role="tabpanel">
+                            <div class="tab-pane fade {{$tab=='social_links' ? 'show active' : ''}}" id="social_links" role="tabpanel">
                                 <div class="pd-20 profile-task-wrap">
                                     ---- Social Links ----
                                 </div>
