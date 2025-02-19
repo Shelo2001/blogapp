@@ -5,7 +5,7 @@
 		<!-- Basic Page Info -->
 		<meta charset="utf-8" />
 		<title>@yield('pageTitle')</title>
-
+		<meta name="csrf-token" content="{{ csrf_token() }}">
 		<!-- Site favicon -->
 		<link
 			rel="apple-touch-icon"
@@ -50,7 +50,7 @@
 			async
 			src="https://www.googletagmanager.com/gtag/js?id=G-GBZ3SGGX85"
 		></script>
-		
+		@kropifyStyles
 		@stack('styleSheets')
 		
 	</head>
@@ -506,7 +506,8 @@
 		<script src="/back/vendors/scripts/script.min.js"></script>
 		<script src="/back/vendors/scripts/process.js"></script>
 		<script src="/back/vendors/scripts/layout-settings.js"></script>
-		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+   @kropifyScripts
 		@stack('scripts')
 	</body>
 </html>
