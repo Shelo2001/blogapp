@@ -52,4 +52,11 @@ class AdminController extends Controller
             return response()->json(['status'=>0,'message'=>'Something went wrong.']);
         }
     }
+
+    public function generalSettings(Request $request){
+        $data =[
+            'pageTitle'=>'General settings'
+        ];
+        return view('back.pages.general_settings',$data);
+    }
 }
