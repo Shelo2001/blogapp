@@ -73,7 +73,20 @@
             <div class="tab-pane fade {{ $tab == 'logo_favicon' ? 'active show' : '' }}" id="logo_favicon"
                 role="tabpanel">
                 <div class="pd-20">
-                    logo_favicon
+                    <div class="col-md-6">
+                        <h6>Site Logo</h6>
+                        <div class="mb-2 mt-1" style="max-width: 200px">
+                            <img wire:ignore src="" alt="img-thumbnail" id="preview_site_logo">
+                        </div>
+                        <form action="{{route('admin.update_logo')}}" id="updateLoginForm" method="post" enctype="multipart/form-data">
+                        @csrf
+                            <div class="mb-2">
+                                <input type="file" name="site_logo" id="" class="form-control">
+                            <span class="text-danger ml-1"></span>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Change Logo</button>
+                    </form>
+                    </div>
                 </div>
             </div>
         </div>
